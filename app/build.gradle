@@ -1,0 +1,77 @@
+apply plugin: 'com.android.application'
+
+ext.minimumSdkVersion = 15
+ext.targetSdkVersion = 28
+ext.compileSdkVersion = 28
+ext.versionMajor = 0
+ext.versionMinor = 0
+ext.versionPatch = 1
+ext.versionClassifier = "-rc1"
+ext.isSnapshot = true
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "adhilrahiman.androidmvvmbase"
+        minSdkVersion project.ext.minimumSdkVersion
+        targetSdkVersion project.ext.targetSdkVersion
+        versionCode generateVersionCode() // 160000001
+        versionName generateVersionName() // 0.0.0-rc4
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    dataBinding {
+        enabled = true
+    }
+}
+
+private Integer generateVersionCode() {
+    return ext.minimumSdkVersion * 10000000 + ext.versionMajor * 10000 + ext.versionMinor * 100 + ext.versionPatch
+}
+
+private String generateVersionName() {
+    String versionName = "${ext.versionMajor}.${ext.versionMinor}.${ext.versionPatch}"
+    if (ext.versionClassifier == null && ext.isSnapshot) {
+        ext.versionClassifier = "-SNAPSHOT"
+    }
+
+    if (ext.versionClassifier != null) {
+        versionName += ext.versionClassifier
+    }
+    return versionName
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "androidx.appcompat:appcompat:$rootProject.supportLibraryVersion"
+    implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraintLayoutVersion"
+    implementation "androidx.recyclerview:recyclerview:$rootProject.supportLibraryVersion"
+    implementation 'androidx.appcompat:appcompat:1.0.0-beta01'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.2'
+    testImplementation "junit:junit:$rootProject.junitVersion"
+    androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
+    androidTestImplementation "androidx.test.espresso:espresso-core:$rootProject.espressoVersion"
+
+    // ViewModel
+    implementation "android.arch.lifecycle:extensions:$rootProject.lifecycle"
+    annotationProcessor "android.arch.lifecycle:compiler:$rootProject.lifecycle"
+
+    // Dagger2 [Dependency Injection]
+    implementation "com.google.dagger:dagger:$rootProject.dagger2Version"
+    annotationProcessor "com.google.dagger:dagger-compiler:$rootProject.dagger2Version"
+    annotationProcessor "com.google.dagger:dagger-android-processor:$rootProject.dagger2Version"
+    implementation "com.google.dagger:dagger-android-support:$rootProject.dagger2Version"
+
+    // RxJava [Reactive Extensions for the JVM]
+    implementation "io.reactivex.rxjava2:rxjava:$rootProject.rxJavaVersion"
+    implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxAndroidVersion"
+}

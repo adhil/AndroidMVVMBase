@@ -1,0 +1,48 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    repositories {
+        google()
+        jcenter()
+        
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.3.0'
+        
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+// Define versions in a single place
+ext {
+    // Sdk and tools
+    minSdkVersion = 16
+    targetSdkVersion = 28
+    compileSdkVersion = 28
+    buildToolsVersion = '28.0.3'
+    constraintLayoutVersion = '1.1.2'
+
+    // App dependencies
+    supportLibraryVersion = '1.0.0-beta01'
+    lifecycle = '1.1.0'
+    dagger2Version = '2.14.1'
+    rxJavaVersion = '2.1.9'
+    rxAndroidVersion = '2.0.2'
+
+    // Test dependencies
+    junitVersion = '4.12'
+    espressoVersion = '3.1.0-alpha4'
+}
