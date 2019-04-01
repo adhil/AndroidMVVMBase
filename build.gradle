@@ -41,6 +41,8 @@ ext {
     dagger2Version = '2.14.1'
     rxJavaVersion = '2.1.9'
     rxAndroidVersion = '2.0.2'
+    gsonVersion = '2.8.2'
+    retrofitVersion = '2.4.0'
 
     // Test dependencies
     junitVersion = '4.12'
